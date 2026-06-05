@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión TI Consultores - Auditoría de Madurez TI</title>
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+       (function() {
+          emailjs.init("kjauedATk0VWoojU-");
+       })();
+    </script>
+    
+    <!-- Firebase SDK (Compat version for script tags) -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyC0K53bgRZBmc5O3pGhWFgu_WMv2zNmMbk",
+        authDomain: "gestion-ti-consultores.firebaseapp.com",
+        projectId: "gestion-ti-consultores",
+        storageBucket: "gestion-ti-consultores.firebasestorage.app",
+        messagingSenderId: "167631885220",
+        appId: "1:167631885220:web:aa4b711dd46d36e3a3e731"
+      };
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+    </script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🔍 Gestión TI Consultores S.A.S.</h1>
+            <p class="subtitle">Plataforma de Diagnóstico de Madurez TI bajo ITIL v4</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="intro">
+            <h2>Bienvenido al Diagnóstico Gratuito</h2>
+            <p>Responda este cuestionario para evaluar el nivel de madurez de los procesos TI de su organización. El diagnóstico toma aproximadamente 10-15 minutos.</p>
+        </section>
+
+        <form id="auditForm">
+            <!-- Datos de la Empresa -->
+            <section class="form-section">
+                <h3>📋 Información de la Empresa</h3>
+                <div class="form-group">
+                    <label for="empresa">Nombre de la Empresa:</label>
+                    <input type="text" id="empresa" name="empresa" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">📧 Correo para recibir el reporte:</label>
+                    <input type="email" id="email" name="email" placeholder="ejemplo@empresa.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="sector">Sector:</label>
+                    <select id="sector" name="sector" required>
+                        <option value="">Seleccione...</option>
+                        <option value="salud">Salud</option>
+                        <option value="educacion">Educación</option>
+                        <option value="comercio">Comercio</option>
+                        <option value="servicios">Servicios</option>
+                        <option value="financiero">Financiero</option>
+                        <option value="otro">Otro</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="empleados">Número de Empleados:</label>
+                    <select id="empleados" name="empleados" required>
+                        <option value="">Seleccione...</option>
+                        <option value="1-10">1-10</option>
+                        <option value="11-50">11-50</option>
+                        <option value="51-200">51-200</option>
+                        <option value="201-500">201-500</option>
+                        <option value="500+">500+</option>
+                    </select>
+                </div>
+            </section>
+
+            <!-- Sección 1: Gestión de Incidentes -->
+            <section class="form-section">
+                <h3>🚨 Gestión de Incidentes</h3>
+                
+                <div class="question">
+                    <p>1. ¿Existe un procedimiento documentado para registrar incidentes TI?</p>
+                    <label><input type="radio" name="q1" value="0" required> No</label>
+                    <label><input type="radio" name="q1" value="1"> Parcialmente</label>
+                    <label><input type="radio" name="q1" value="2"> Sí, completamente</label>
+                </div>
+
+                <div class="question">
+                    <p>2. ¿Se registran todos los incidentes en una herramienta o sistema?</p>
+                    <label><input type="radio" name="q2" value="0" required> No</label>
+                    <label><input type="radio" name="q2" value="1"> Algunos</label>
+                    <label><input type="radio" name="q2" value="2"> Todos</label>
+                </div>
+
+                <div class="question">
+                    <p>3. ¿Existen tiempos de respuesta definidos (SLA) para incidentes?</p>
+                    <label><input type="radio" name="q3" value="0" required> No</label>
+                    <label><input type="radio" name="q3" value="1"> Informales</label>
+                    <label><input type="radio" name="q3" value="2"> Documentados</label>
+                </div>
+
+                <div class="question">
+                    <p>4. ¿Se realiza análisis de causa raíz para incidentes recurrentes?</p>
+                    <label><input type="radio" name="q4" value="0" required> Nunca</label>
+                    <label><input type="radio" name="q4" value="1"> A veces</label>
+                    <label><input type="radio" name="q4" value="2"> Siempre</label>
+                </div>
+            </section>
+
+            <!-- Sección 2: Gestión de Cambios -->
+            <section class="form-section">
+                <h3>🔄 Gestión de Cambios</h3>
+                
+                <div class="question">
+                    <p>5. ¿Existe un proceso formal para aprobar cambios en infraestructura?</p>
+                    <label><input type="radio" name="q5" value="0" required> No</label>
+                    <label><input type="radio" name="q5" value="1"> Informal</label>
+                    <label><input type="radio" name="q5" value="2"> Formal documentado</label>
+                </div>
+
+                <div class="question">
+                    <p>6. ¿Se documentan todos los cambios realizados?</p>
+                    <label><input type="radio" name="q6" value="0" required> No</label>
+                    <label><input type="radio" name="q6" value="1"> Algunos</label>
+                    <label><input type="radio" name="q6" value="2"> Todos</label>
+                </div>
+
+                <div class="question">
+                    <p>7. ¿Se realizan pruebas antes de implementar cambios críticos?</p>
+                    <label><input type="radio" name="q7" value="0" required> Nunca</label>
+                    <label><input type="radio" name="q7" value="1"> A veces</label>
+                    <label><input type="radio" name="q7" value="2"> Siempre</label>
+                </div>
+            </section>
+
+            <!-- Sección 3: Gestión de Accesos -->
+            <section class="form-section">
+                <h3>🔐 Gestión de Accesos</h3>
+                
+                <div class="question">
+                    <p>8. ¿Existe una política de contraseñas establecida?</p>
+                    <label><input type="radio" name="q8" value="0" required> No</label>
+                    <label><input type="radio" name="q8" value="1"> Básica</label>
+                    <label><input type="radio" name="q8" value="2"> Completa</label>
+                </div>
+
+                <div class="question">
+                    <p>9. ¿Se revisan periódicamente los permisos de los usuarios?</p>
+                    <label><input type="radio" name="q9" value="0" required> Nunca</label>
+                    <label><input type="radio" name="q9" value="1"> Ocasionalmente</label>
+                    <label><input type="radio" name="q9" value="2"> Regularmente</label>
+                </div>
+
+                <div class="question">
+                    <p>10. ¿Se utiliza autenticación multifactor para accesos críticos?</p>
+                    <label><input type="radio" name="q10" value="0" required> No</label>
+                    <label><input type="radio" name="q10" value="1"> En algunos sistemas</label>
+                    <label><input type="radio" name="q10" value="2"> En todos los críticos</label>
+                </div>
+            </section>
+
+            <button type="submit" class="btn-submit">📊 Generar Reporte de Diagnóstico</button>
+        </form>
+
+        <div id="resultado" class="resultado" style="display:none;">
+            <!-- Aquí se mostrará el resultado -->
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Gestión TI Consultores S.A.S. - Todos los derechos reservados</p>
+            <p>📧 hannahmendoza05@outlook.com | 📱 +57 3138352546</p>
+            <p>Trabajo de Grado - Ingeniería Informática</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
